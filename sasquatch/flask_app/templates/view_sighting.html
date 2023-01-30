@@ -1,0 +1,44 @@
+{% extends 'Base.html' %}
+{% block content %}
+
+<div class="container">
+	<div class="flexd">
+		<div class="flexr">
+			<div class="flexd justify-content-between">
+				<input type="hidden" name="id" value="{{sighting.id}}">
+				<div class="title">
+					<h1 class=""><em>{{sighting.location}}</em></h1>
+				</div>
+				<div class="flexr">
+
+				</div>
+				<div class="flexd content_box-ns">
+					<div class="content_box">
+						<p>What Happened:</p>
+						<p>{{sighting.content}}</p>
+					</div>
+					<div>
+						<p>When it Happened: {{sighting.date_seen}}</p>
+						<p>How many Sasquatches: {{sighting.num_seen}}</p>
+					</div>
+					Reported by: {{user.email if session['user'] != user.email else 'You'}}
+				</div>
+			</div>
+			<form action="/believe" method="POST" class="justify-content-between">
+				<input type="hidden" name="sighting_id" value="{{sighting.id}}">
+				<input type="hidden" name="user_id" value="{{session['id']}}">
+			<div class="flexd">
+				Skeptics:
+				{% for skeptic in skeptics %}
+				<div>{{ skeptic.email }}</div>
+				{% endfor %}
+					
+					<button type="submit" class="shaded">Believe it!</button>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}

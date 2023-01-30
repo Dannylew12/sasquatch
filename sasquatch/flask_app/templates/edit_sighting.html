@@ -1,0 +1,52 @@
+{% extends 'Base.html' %}
+{% block content %}
+
+<div class="container flexd">
+	<div class="flexr">
+		<form action="/update_sighting/{{sighting.id}}" method="POST" class="flexd justify-content-between">
+			<input type="hidden" name="id" value="{{sighting.id}}">
+		<div class="flexd">
+			<h2>Edit this Sighting</h2>
+			
+			<label for="location">Location:
+				{% for message in get_flashed_messages(category_filter=['err_sighting_location_count']) %}
+				<p class="err-msg">{{message}}</p>
+				{% endfor %}
+				{% for message in get_flashed_messages(category_filter=['err_sighting_location_exists']) %}
+				<p class="err-msg">{{message}}</p>
+				{% endfor %}
+			</label>
+			<input type="text" name="location" value="{{sighting.location}}">
+
+			<label for="content">What Happened:
+				{% for message in get_flashed_messages(category_filter=['err_sighting_content_count']) %}
+				<p class="err-msg">{{message}}</p>
+				{% endfor %}
+			</label>
+			<textarea name="content" class="content_box" value="{{sighting.content}}">{{sighting.content}}</textarea>
+
+			<button class="shaded">Save</button>
+		</div>
+		<div class="flexd">
+
+			<label for="date_seen">When it Happened:
+				{% for message in get_flashed_messages(category_filter=['err_sighting_date_syntax']) %}
+				<p class="err-msg">{{message}}</p>
+				{% endfor %}
+			</label>
+			<input type="datetime-local" name="date_seen"
+			value="{{sighting.date_seen}}" placeholder="" aria-placeholder="">
+
+			<label for="num_seen">How many Sasquatches:
+				{% for message in get_flashed_messages(category_filter=['err_sighting_num_seen_zero']) %}
+				<p class="err-msg">{{message}}</p>
+				{% endfor %}
+			</label>
+			<div ><input class="num sas" type="number" name="num_seen" value="{{sighting.num_seen}}"></div>
+		</div>
+		</form>
+	</div>
+</div>
+
+
+{% endblock %}
